@@ -1,0 +1,28 @@
+name: Manual Workflow
+on:
+  workflow_dispatch:
+    inputs:
+      input1:
+        description: 'Input 1 Description'
+        required: true
+        default: 'Default value 1'
+      input2:
+        description: 'Input 2 Description'
+        required: false
+
+jobs:
+  run:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.1' # Specify your .NET version here
+    - name: Run PowerShell Script
+      run: |
+        # Your PowerShell commands here
+        echo "Input 1: ${{ github.event.inputs.input1 }}"
+        echo "Input 2: ${{ github.event.inputs.input2 }}"
+      shell: pwsh
